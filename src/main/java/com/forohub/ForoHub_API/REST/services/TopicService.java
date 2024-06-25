@@ -2,6 +2,7 @@ package com.forohub.ForoHub_API.REST.services;
 
 import com.forohub.ForoHub_API.REST.domain.topics.Topic;
 import com.forohub.ForoHub_API.REST.dto.TopicDTO;
+import com.forohub.ForoHub_API.REST.errors.CustomConflictException;
 import com.forohub.ForoHub_API.REST.infra.security.AuthenticationService;
 import com.forohub.ForoHub_API.REST.repository.TopicRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -52,7 +53,7 @@ public class TopicService {
                     authorName,
                     topic.getCreationDate());
         }
-        return null;
+        throw new EntityNotFoundException("No se encontró el Topic con id: " + id);
     }
 
     public Topic createTopic(TopicDTO dto) {
@@ -64,7 +65,7 @@ public class TopicService {
         var author = authenticationService.getNameAuthenticatedUser();
         topic.setAuthor(author);
         if (existingValidationTopic.existingValidation(topic.getTitle(), topic.getBody())) {
-            return null;
+            throw new CustomConflictException("No puede crear un topic duplicado ");
         }
         return topicRepository.save(topic);
     }
@@ -80,7 +81,7 @@ public class TopicService {
             topic.setAuthor(author);
             topic.setCreationDate(LocalDateTime.now());
             if (existingValidationTopic.existingValidation(topic.getTitle(), topic.getBody())){
-                return null;
+                throw new CustomConflictException("No puede crear un topic duplicado ");
             }
             return topicRepository.save(topic);
         }

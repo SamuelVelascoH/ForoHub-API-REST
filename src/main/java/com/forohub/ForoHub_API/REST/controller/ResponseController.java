@@ -3,6 +3,7 @@ package com.forohub.ForoHub_API.REST.controller;
 import com.forohub.ForoHub_API.REST.domain.topics.Response;
 import com.forohub.ForoHub_API.REST.dto.ResponseDTO;
 import com.forohub.ForoHub_API.REST.services.ResponseService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,11 +25,13 @@ public class ResponseController {
 
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDTO> getResponseById(@PathVariable Long id) {
-        ResponseDTO responseDTO = responseService.getResponseById(id);
-        if (responseDTO == null) {
+        try {
+            ResponseDTO responseDTO = responseService.getResponseById(id);
+            return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+        } catch (EntityNotFoundException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+
     }
 
     @PostMapping("/{id}")
@@ -39,11 +42,13 @@ public class ResponseController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Response> updateResponse(@PathVariable Long id, @RequestBody ResponseDTO responseDTO) {
-        Response updatedResponse = responseService.updateResponse(id, responseDTO);
-        if (updatedResponse == null) {
+        try {
+            Response updatedResponse = responseService.updateResponse(id, responseDTO);
+            return new ResponseEntity<>(updatedResponse, HttpStatus.OK);
+        } catch (EntityNotFoundException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(updatedResponse, HttpStatus.OK);
+
     }
 
     @DeleteMapping("/{id}")

@@ -2,7 +2,9 @@ package com.forohub.ForoHub_API.REST.controller;
 
 import com.forohub.ForoHub_API.REST.domain.topics.Topic;
 import com.forohub.ForoHub_API.REST.dto.TopicDTO;
+import com.forohub.ForoHub_API.REST.errors.CustomConflictException;
 import com.forohub.ForoHub_API.REST.services.TopicService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,29 +26,34 @@ public class TopicController {
 
     @GetMapping("/{id}")
     public ResponseEntity<TopicDTO> getTopicById(@PathVariable Long id) {
-        TopicDTO topicDTO = topicService.getTopicById(id);
-        if (topicDTO == null) {
+        try {
+            TopicDTO topicDTO = topicService.getTopicById(id);
+            return new ResponseEntity<>(topicDTO, HttpStatus.OK);
+        } catch (EntityNotFoundException e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(topicDTO, HttpStatus.OK);
     }
 
     @PostMapping
     public ResponseEntity<Topic> createTopic(@RequestBody TopicDTO dto) {
-        Topic createdTopic = topicService.createTopic(dto);
-        if (createdTopic == null){
-            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        try {
+            Topic createdTopic = topicService.createTopic(dto);
+            return new ResponseEntity<>(createdTopic, HttpStatus.CREATED);
+        } catch (CustomConflictException e) {
+             return new ResponseEntity<>(e.getStatus());
         }
-        return new ResponseEntity<>(createdTopic, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Topic> updateTopic(@PathVariable Long id, @RequestBody TopicDTO dto) {
-        Topic updatedTopic = topicService.updateTopic(id, dto);
-        if (updatedTopic == null) {
+        try {
+            Topic updatedTopic = topicService.updateTopic(id, dto);
+            return new ResponseEntity<>(updatedTopic, HttpStatus.OK);
+        } catch (CustomConflictException e) {
+            return new ResponseEntity<>(e.getStatus());
+        } catch (EntityNotFoundException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<>(updatedTopic, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
