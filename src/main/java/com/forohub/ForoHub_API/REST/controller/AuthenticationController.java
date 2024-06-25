@@ -1,7 +1,7 @@
 package com.forohub.ForoHub_API.REST.controller;
 
 import com.forohub.ForoHub_API.REST.domain.usuarios.UserAPI;
-import com.forohub.ForoHub_API.REST.dto.AuthenticationUserApiDTO;
+import com.forohub.ForoHub_API.REST.dto.AuthenticationUserDTO;
 import com.forohub.ForoHub_API.REST.dto.JWTTokenDTO;
 import com.forohub.ForoHub_API.REST.infra.security.TokenService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -26,7 +26,7 @@ public class AuthenticationController {
     private TokenService tokenService;
 
     @PostMapping
-    public ResponseEntity authenticateUser(@RequestBody @Valid AuthenticationUserApiDTO authenticationUserDTO){
+    public ResponseEntity authenticateUser(@RequestBody @Valid AuthenticationUserDTO authenticationUserDTO){
         Authentication authentication = new UsernamePasswordAuthenticationToken(authenticationUserDTO.login(), authenticationUserDTO.key());
         var authenticatedUser = authenticationManager.authenticate(authentication);
         var jwtToken = tokenService.generateToken((UserAPI) authenticatedUser.getPrincipal());

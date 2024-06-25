@@ -1,6 +1,7 @@
 package com.forohub.ForoHub_API.REST.infra.security;
 
 import com.forohub.ForoHub_API.REST.repository.UserApiRepository;
+import com.forohub.ForoHub_API.REST.repository.UserForoRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Collections;
 
 @Component
 public class SecurityFilter extends OncePerRequestFilter {
@@ -19,16 +21,17 @@ public class SecurityFilter extends OncePerRequestFilter {
     private TokenService tokenService;
     @Autowired
     private UserApiRepository userApiRepository;
+    @Autowired
+    private UserForoRepository userForoRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         var authHeader = request.getHeader("Authorization");
         if (authHeader != null) {
             var token = authHeader.replace("Bearer ", "");
-            var userApiName = tokenService.getSubject(token);
-            if (userApiName != null) {
-                var user = userApiRepository.findByLogin(userApiName);
-                var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
+            var userName = tokenService.getSubject(token);
+            if (userName != null) {
+                var authentication = new UsernamePasswordAuthenticationToken(userName, null, Collections.emptyList());
                 SecurityContextHolder.getContext().setAuthentication(authentication);
 
 

@@ -64,7 +64,7 @@ public class TopicService {
         var author = authenticationService.getNameAuthenticatedUser();
         topic.setAuthor(author);
         if (existingValidationTopic.existingValidation(topic.getTitle(), topic.getBody())) {
-            throw new ResponseStatusException(HttpStatus.CONFLICT);
+            return null;
         }
         return topicRepository.save(topic);
     }
@@ -80,7 +80,7 @@ public class TopicService {
             topic.setAuthor(author);
             topic.setCreationDate(LocalDateTime.now());
             if (existingValidationTopic.existingValidation(topic.getTitle(), topic.getBody())){
-                throw new ResponseStatusException(HttpStatus.CONFLICT);
+                return null;
             }
             return topicRepository.save(topic);
         }

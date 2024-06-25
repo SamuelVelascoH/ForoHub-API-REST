@@ -2,7 +2,7 @@ package com.forohub.ForoHub_API.REST.dto;
 
 import jakarta.validation.constraints.NotBlank;
 
-public record AuthenticationUserApiDTO(
+public record AuthenticationUserDTO(
         @NotBlank
         String login,
         @NotBlank
