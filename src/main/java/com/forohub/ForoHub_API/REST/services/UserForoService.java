@@ -42,4 +42,8 @@ public class UserForoService {
         }
         return null;
     }
+
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
+    }
 }

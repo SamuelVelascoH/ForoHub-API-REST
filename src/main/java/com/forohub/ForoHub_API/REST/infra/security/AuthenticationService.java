@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 @Service
 public class AuthenticationService  {
 
-    // Get authenticated user UserAPI or UserForo
     public String getNameAuthenticatedUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {

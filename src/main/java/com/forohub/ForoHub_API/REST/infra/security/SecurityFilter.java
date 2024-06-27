@@ -1,7 +1,5 @@
 package com.forohub.ForoHub_API.REST.infra.security;
 
-import com.forohub.ForoHub_API.REST.repository.UserApiRepository;
-import com.forohub.ForoHub_API.REST.repository.UserForoRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

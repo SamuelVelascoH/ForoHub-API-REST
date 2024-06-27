@@ -102,25 +102,4 @@ public class TopicService {
         }
     }
 
-    private TopicDTO convertirTopicADTO(Topic topic, int maxDepth) {
-        String authorName = (topic.getAuthor() != null) ? topic.getAuthor() : "Desconocido";
-        String status = getTopicStatus(topic);
-
-        List<TopicDTO> responses = null;
-        if (maxDepth > 1 && topic.getResponse() != null) {
-            responses = topic.getResponse().stream()
-                    .map(response -> convertirTopicADTO(response.getTopic(), maxDepth - 1)) // Llamada recursiva con profundidad reducida
-                    .collect(Collectors.toList());
-        }
-
-        return new TopicDTO(
-                topic.getId(),
-                topic.getTitle(),
-                topic.getBody(),
-                topic.getCourseName(),
-                authorName,
-                topic.getCreationDate(),
-                status);
-    }
-
 }
