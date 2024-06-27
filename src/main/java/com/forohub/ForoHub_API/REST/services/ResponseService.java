@@ -28,7 +28,6 @@ public class ResponseService {
                 .map(response -> {
                     String author = (response.getResponseAuthor() != null) ? response.getResponseAuthor() : "Desconocido";
                     return new ResponseDTO(
-                            response.getIdTopic(),
                             response.getResponseTitle(),
                             response.getBody(),
                             author,
@@ -41,7 +40,6 @@ public class ResponseService {
         Response response = responseRepository.findById(id).orElse(null);
         if (response != null){
             return  new ResponseDTO(
-                    response.getIdTopic(),
                     response.getResponseTitle(),
                     response.getBody(),
                     response.getResponseAuthor(),
@@ -54,7 +52,7 @@ public class ResponseService {
         var author = authenticationService.getNameAuthenticatedUser();
         if (topicRepository.findById(id).isPresent()){
         Response response = new Response();
-        response.setIdTopic(topicRepository.getReferenceById(id));
+        response.setTopic(topicRepository.getReferenceById(id));
         response.setResponseAuthor(author);
         response.setResponseTitle(dto.responseTitle());
         response.setBody(dto.body());

@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ResponseRepository extends JpaRepository<Response, Long> {
-    @EntityGraph(attributePaths = {"response_author"})
+    @EntityGraph(attributePaths = {"topic_id"})
     @Query("SELECT t FROM response t")
     List<Response> findAllTopicsWithAuthors();
 }

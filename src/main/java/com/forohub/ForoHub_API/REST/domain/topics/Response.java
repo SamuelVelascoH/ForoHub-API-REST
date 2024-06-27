@@ -1,7 +1,7 @@
 package com.forohub.ForoHub_API.REST.domain.topics;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.forohub.ForoHub_API.REST.domain.usuarios.UserForo;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
@@ -21,8 +21,9 @@ public class Response {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ManyToOne
-    @JoinColumn(name = "topic_id", nullable = false)
-    private Topic idTopic;
+    @JsonBackReference
+    @JoinColumn(name = "topic_id")
+    private Topic topic;
 
     private String responseTitle;
 

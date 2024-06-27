@@ -7,6 +7,7 @@ public record TopicDTO(Long id,
                        String body,
                        String courseName,
                        String author,
-                       LocalDateTime creationDate) {
+                       LocalDateTime creationDate,
+                       String estado ) {
 
 }

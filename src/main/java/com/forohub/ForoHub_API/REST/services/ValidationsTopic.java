@@ -1,11 +1,12 @@
 package com.forohub.ForoHub_API.REST.services;
 
+import com.forohub.ForoHub_API.REST.domain.topics.Topic;
 import com.forohub.ForoHub_API.REST.repository.TopicRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ExistingValidationTopic {
+public class ValidationsTopic {
     @Autowired
     TopicRepository topicRepository;
     public boolean existingValidation(String title, String body){
@@ -16,5 +17,4 @@ public class ExistingValidationTopic {
             return true;
         } else return false;
     }
-
 }
