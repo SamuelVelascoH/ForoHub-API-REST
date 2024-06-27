@@ -45,49 +45,93 @@ https://github.com/SamuelVelascoH/ForoHub-API-REST.git
 _Y abra el proyecto desde IntelliJ IDEA (Open new file) con la ruta de su repositorio local, debera iniciar el servicio.
 las URI para las pruebas son las siguientes_
 
-_Para crear un usuario de tipo UserForo:_
-
+_Para crear un usuario de tipo UserForo (debera usar el metodo HTTP: POST, el cuerpo de tipo JSON y la URI) a continuacion:_
 ```
  http://localhost:8080/user
 ```
-_Para actualizar un usuario de tipo UserForo:_
+ ```
+{
+    "email" : "tu email" ,
+	"userName" : "tu usuario" ,
+	"password" : "tu contraseña"
+}
+```
+_Para actualizar un usuario de tipo UserForo (debera usar el metodo HTTP: PUT, el cuerpo de tipo JSON y la URI) a continuacion:_
 ```
 http://localhost:8080/user/{id}
 ```
-_Para listar todos los usuarios de tipo UserForo:_
+```
+{ "id" : "id del usuario" ,
+	"email" : "tu nuevo email" ,
+	"userName" : "tu nuevo usduario" ,
+	"password" : "tu nueva contraseña"
+}
+```
+_Para listar todos los usuarios de tipo UserForo (debera usar el metodo HTTP: GET y la URI) a continuacion::_
 ```
 http://localhost:8080/user
 ```
-_Para obtener un usuario de tipo UserForo por su ID:_
+_Para obtener un usuario de tipo UserForo por su ID (debera usar el metodo HTTP: GET la URI(el "id" apunta a el user a actualizar)) a continuacion:_
 ```
 http://localhost:8080/user/{id}
 ```
-_Para eliminar un usuario de tipo UserForo:_
+_Para eliminar un usuario de tipo UserForo (debera usar el metodo HTTP: DELETE, el cuerpo de tipo JSON y la URI (el "id" apunta a el user a actualizar)) a continuacion:_
 ```
 http://localhost:8080/user/{5}
 ```
-_Para crear un Topico:_
+_Para crear un Topico (debera usar el metodo HTTP: POST, el cuerpo de tipo JSON y la URI) a continuacion:_
 ```
 http://localhost:8080/topics
 ```
-_en el body:_
 ```
-hasta finalizar
+{
+	"title" : "tu titulo" ,
+	"body" : "tu tema" ,
+	"courseName" : "tu nombre de curso"
+}
 ```
+_Para actualizar un Topico (debera usar el metodo HTTP: PUT, el cuerpo de tipo JSON y la URI) a continuacion:_
 ```
-hasta finalizar
-```
-```
-hasta finalizar
-```
-```
-hasta finalizar
+http://localhost:8080/topics/{id}
 ```
 ```
-hasta finalizar
+{ "id" : "id del topico" , 
+	"title" : "tu nuevo titulo" ,
+	"body" : "tu nuevo tema" ,
+	"courseName" : "nombre del curso"
+}
 ```
+_Para listar todos Topicos (debera usar el metodo HTTP: GET, el cuerpo de tipo JSON y la URI) a continuacion:_
 ```
-hasta finalizar
+http://localhost:8080/topics
+```
+_Para obtener un Topico por su ID (debera usar el metodo HTTP: GET, el cuerpo de tipo JSON y la URI) a continuacion:_
+```
+http://localhost:8080/topics/{id}
+```
+_Para eliminar un Topico (debera usar el metodo HTTP: DELETE, el cuerpo de tipo JSON y la URI) a continuacion:_
+```
+http://localhost:8080/topics/{id}
+```
+_Para crear una repuesta (el "id" apunta hacia el topico al que va dirigida la respuesta), (debera usar el metodo HTTP: POST, el cuerpo de tipo JSON y la URI) a continuacion_
+```
+http://localhost:8080/response/{id}
+```
+_Para actualizar una repuesta (el "id" apunta hacia la respuesta a actualizar), (debera usar el metodo HTTP: PUT, el cuerpo de tipo JSON y la URI) a continuacion_
+```
+http://localhost:8080/response/{id}
+```
+_Para listar todas las repuestas (debera usar el metodo HTTP: GET, el cuerpo de tipo JSON y la URI) a continuacion_
+```
+http://localhost:8080/response
+```
+_Para obtener una repuesta por su ID (debera usar el metodo HTTP: GET, el cuerpo de tipo JSON y la URI) a continuacion_
+```
+http://localhost:8080/response/{id}
+```
+_Para eliminar una respuesta (debera usar el metodo HTTP: DELETE, el cuerpo de tipo JSON y la URI) a continuacion_
+```
+http://localhost:8080/response/{id}
 ```
 
 _Finaliza con un ejemplo de cómo obtener datos del sistema o como usarlos para una pequeña demo_
